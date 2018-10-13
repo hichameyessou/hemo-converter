@@ -16,6 +16,7 @@
     <!-- CSS Files -->
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+    <link href="./assets/css/switch-custom.css" rel="stylesheet" />
     
   </head>
 
@@ -59,60 +60,75 @@
         </div>
         <div class="container">
           <div class="content-center brand en">
-            <img class="n-logo" src="./assets/img/now-logo.png" alt="">
+            <img class="n-logo" src="./assets/img/logo.png" style="opacity:0.7;" alt="">
             <h1 class="h1-seo">HbA1c Converter</h1>
             <h3>Easily convert from IFCC mmol/mol units to DCCT percentage and vice-versa</h3>
+            <button style="background-color:transparent; border-color:transparent; cursor: pointer; outline: none;" onclick="scrollThat()"><img style="opacity:0.4;" src="./assets/img/expand.png" /></button>
           </div>
           <div class="content-center brand it">
-            <img class="n-logo" src="./assets/img/now-logo.png" alt="">
+            <img class="n-logo" src="./assets/img/logo.png" style="opacity:0.7;" alt="">
             <h1 class="h1-seo">HbA1c Convertitore</h1>
             <h3>Converti facilmente dalle unità IFFC mmol/mol alle percentuali DCCT e vice-versa</h3>
+            <button style="background-color:transparent; border-color:transparent; cursor: pointer; outline: none;" onclick="scrollThat()"><img style="opacity:0.4;" src="./assets/img/expand.png" /></button>
           </div>
-
         </div>
       </div>
       <br>
+      
       <div class="section section-basic" id="basic-elements">
         <div class="container">
-          <div class="card">
+          <div class="card" style="word-wrap: unset;">
             <div class="card-body">
               <!-- Tab panes -->
-              <div class="tab-content text-center en">
+              <div id="first-block-card" class="tab-content text-center en">
                 <h5>Converter</h5>
-                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;line-height: 12px;vertical-align:middle;">
-                  <p>From mmol/mol to percentage &ensp;</p><input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
+                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;">
+                  <p>From mmol/mol to percentage &ensp;</p>
+                  <label class="switch-custom" style="margin-top: 4px">
+                    <input id="conversionType" type="checkbox" checked onclick="switchChange(this)">
+                    <span class="slider-custom round"></span>
+                  </label>
                 </span>
 
-                <form>
+                <form id="calculateHemo">
                   <div class="form-row" style="display: inline-flex;">
                     <div class="col">
-                      <input type="number" class="form-control" placeholder="IFCC mmol/mol">
+                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
                     </div>
                     <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
                     <div class="col">
-                      <input type="number" class="form-control" placeholder="DCCT percentage">
+                      <input id="output" type="number" class="form-control" placeholder="DCCT percentage" disabled="true" maxlength="3">
                     </div>
                   </div>
                 </form>
+                <button class="btn btn-simple btn-round" type="button" onclick="convert()">Convert</button>
+                <button class="btn btn-simple btn-round" type="button" onclick="reset()">Reset</button>
+
               </div>
 
-              <div class="tab-content text-center it">
+              <div id="first-block-card" class="tab-content text-center it">
                 <h5>Convertitore</h5>
-                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;line-height: 12px;vertical-align:middle;">
-                  <p>Da mmol/mol al valore in percentuale &ensp;</p><input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
+                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;">
+                  <p>Da mmol/mol al valore in percentuale &ensp;</p>
+                  <label class="switch-custom">
+                    <input id="conversionType" type="checkbox" checked onclick="switchChange(this)">
+                    <span class="slider-custom round"></span>
+                  </label>
                 </span>
 
-                <form>
+                <form id="calculateHemo">
                   <div class="form-row" style="display: inline-flex;">
                     <div class="col">
-                      <input type="number" class="form-control" placeholder="IFCC mmol/mol">
+                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
                     </div>
                     <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
                     <div class="col">
-                      <input type="number" class="form-control" placeholder="DCCT percentuali">
+                      <input id="output" type="number" class="form-control" placeholder="DCCT percentuali" disabled="true">
                     </div>
                   </div>
                 </form>
+                <button class="btn btn-simple btn-round" type="button" onclick="convert()">Converti</button>
+                <button class="btn btn-simple btn-round" type="button" onclick="reset()">Resetta</button>
               </div>
 
             </div>
@@ -148,26 +164,62 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+  
+
+  <script type="text/javascript">
+    $('.bootstrap-switch').each(function(){
+      $this = $(this);
+      data_on_label = $this.data('on-label') || '';
+      data_off_label = $this.data('off-label') || '';
+
+      $this.bootstrapSwitch({
+        onText: data_on_label,
+        offText: data_off_label
+      });
+    });
+  </script>
+
   <script>
     $(document).ready(function() {
-        // the body of this function is in assets/js/now-ui-kit.js
+    
       });
+    
+    function switchChange(cb) {
+      var inputForm = document.getElementById('input').placeholder;
+      var outputForm = document.getElementById('output').placeholder;
+      
+      $('#input').attr('placeholder',outputForm);
+      $('#output').attr('placeholder',inputForm);
+
+      reset();
+    }
 
     function setLanguage(language) {
-      console.info("setLanguage");
       $('#outer-tag').attr("lang", language);
       var selector = document.getElementById('languageSelector');
       selector.innerHTML = language;
-
     }
 
-    function scrollToDownload() {
-
-      if ($('.section-download').length != 0) {
-        $("html, body").animate({
-          scrollTop: $('.section-download').offset().top
-        }, 1000);
+    function convert() {
+      var but = document.getElementById("conversionType");
+      if(but.checked == true){
+        console.info("conversionType T");
+        document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2);
+      }else{
+        console.info("conversionType F");
+        document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2);;
       }
+    }
+
+    function reset(){
+      $("#calculateHemo").trigger('reset'); 
+    }
+
+    function scrollThat(){
+      console.info("Got here");
+      $('html').animate({
+          scrollTop: $("#first-block-card").offset().top -100
+        }, 1500);
     }
   </script>
 </body>
