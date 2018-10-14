@@ -30,6 +30,15 @@
 .en, .it { display:none; } /* hide all elements with a language class */
 .en:lang(en), .it:lang(it) { display:block; } /* show those elements that match their language class */
 
+.scrollContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 .bootstrap-switch {
   display: inline-block;
   direction: ltr;

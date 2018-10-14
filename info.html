@@ -30,11 +30,12 @@
             <span class="navbar-toggler-bar middle-bar"></span>
             <span class="navbar-toggler-bar bottom-bar"></span>
           </button>
+          <a class="navbar-brand" href="index.html">Home</a>
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="info.html">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
                 <i class="now-ui-icons files_paper"></i>
                 <p>Info</p>
               </a>
@@ -59,83 +60,43 @@
         <div class="page-header-image" data-parallax="true" style="background-image:url('./assets/img/bg11.jpg');">
         </div>
         <div class="container">
-          <div class="content-center brand">
-            <img class="n-logo" src="./assets/img/logo.png" style="opacity:0.7;max-width: 50%" alt="">
-            <div class="en">
-              <h2 class="h2-seo">HbA1c Converter</h2>
-              <h4>Easily convert from IFCC mmol/mol units to DCCT percentage and vice-versa</h4>
-            </div>
-            <div class="it">
-              <h2 class="h2-seo">HbA1c Convertitore</h2>
-              <h4>Converti facilmente dalle unità IFFC mmol/mol alle percentuali DCCT e vice-versa</h4> 
-            </div>
-            <button id="scrollPage" style="background-color:transparent; border-color:transparent; cursor: pointer; outline: none;" onclick="scrollThat()"><img style="opacity:0.4;" src="./assets/img/expand.png" /></button>
-          </div>
-          
-        </div>
-      </div>
-      <br>
-      
-      <div class="section section-basic" id="basic-elements">
-        <div class="container">
-          <div class="card" style="word-wrap: unset;">
+          <div class="card text-center">
             <div class="card-body">
-              <!-- Tab panes -->
-              <div id="first-block-card" class="tab-content text-center en">
-                <h5>Converter</h5>
-                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;">
-                  <p>From mmol/mol to percentage &ensp;</p>
-                  <label class="switch-custom" style="margin-top: 4px">
-                    <input id="conversionType" type="checkbox" checked onclick="switchChange(this)">
-                    <span class="slider-custom round"></span>
-                  </label>
-                </span>
-
-                <form id="calculateHemo">
-                  <div class="form-row" style="display: inline-flex;">
-                    <div class="col">
-                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
-                    </div>
-                    <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
-                    <div class="col">
-                      <input id="output" type="number" class="form-control" placeholder="DCCT percentage" disabled="true" maxlength="3">
-                    </div>
-                  </div>
-                </form>
-                <button class="btn btn-simple btn-round" type="button" onclick="convert()">Convert</button>
-                <button class="btn btn-simple btn-round" type="button" onclick="reset()">Reset</button>
-
+              <h4 class="card-title" style="color: black;">
+                <div class="en">
+                Info about the tool
               </div>
-
-              <div id="first-block-card" class="tab-content text-center it">
-                <h5>Convertitore</h5>
-                <span class="tab-pane active" id="home" role="tabpanel" style="display: inline-flex;">
-                  <p>Da mmol/mol al valore in percentuale &ensp;</p>
-                  <label class="switch-custom">
-                    <input id="conversionType" type="checkbox" checked onclick="switchChange(this)">
-                    <span class="slider-custom round"></span>
-                  </label>
-                </span>
-
-                <form id="calculateHemo">
-                  <div class="form-row" style="display: inline-flex;">
-                    <div class="col">
-                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
-                    </div>
-                    <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
-                    <div class="col">
-                      <input id="output" type="number" class="form-control" placeholder="DCCT percentuali" disabled="true">
-                    </div>
-                  </div>
-                </form>
-                <button class="btn btn-simple btn-round" type="button" onclick="convert()">Converti</button>
-                <button class="btn btn-simple btn-round" type="button" onclick="reset()">Resetta</button>
+              <div class="it">
+                Informazioni riguardanti lo strumento
               </div>
-
+              </h4>
+              <p class="card-text">
+                  <div class="en" style="color: black;">
+                    This tool has been developed to help patients and medical staff to transform Glycated Hemoglobin values between the IFFC (International Federation of Clinical Chemistry and Laboratory Medicine) and NGSP/DCCT notations. <br>
+                    The relationship between the 2 methods has been stable over the years and it is mapped with the master equation, standardizing the HbA1c analysis.
+                    <br>
+                    This tool refers to the master equation present in the document "IFCC Standardization of HbA1c" of the NGSP. (15/10/2018)
+                </div>
+                <div class="it" style="color: black;">
+                  Questo strumento è stato sviluppato per aiutare pazienti e personale medico a trasformare i valori di emoglobina glicata tra la notazione IFFC (International Federation of Clinical Chemistry and Laboratory Medicine) e la notazione NGSP/DCCT. La relazione tra i 2 metodi è stata stabile nel corso degli anni ed è mappata con l'equazione sviluppata nel documento "IFCC Standardization of HbA1c" da parte dell'NGSP. (15/10/2018)
+                </div>
+              </p>
+              <a href="http://www.ngsp.org/docs/ifccstd.pdf" class="btn">IFCC Standardization of HbA1c</a>
+            </div>
+            <div class="card-footer text-muted mb-2">
+              <div class="en">
+                DISCLAIMER: You must not rely on the information on this website as an alternative to medical advice from your doctor or another professional healthcare provider. The information of this tool is provided without any representations or warranties, express or implied.
+              </div>
+              <div class="it">
+                DECLINAZIONE DI RESPONSABILITÁ: Non devi fare affidamento sulle informazioni contenute in questo sito web come alternativa ai consigli medici del tuo medico o di un altro operatore sanitario professionale. Le informazioni di questo strumento sono fornite senza alcuna rappresentazione o garanzia, espressa o implicita.
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
+
+
     </div>
 
     <!--  End Modal -->
