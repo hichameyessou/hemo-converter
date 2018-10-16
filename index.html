@@ -94,11 +94,11 @@
                 <form id="calculateHemo">
                   <div class="form-row" style="display: inline-flex;">
                     <div class="col">
-                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
+                      <input id="input" type="text" class="form-control" placeholder="IFCC mmol/mol" onclick="reset()">
                     </div>
                     <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
                     <div class="col">
-                      <input id="output" type="number" class="form-control" placeholder="DCCT percentage" disabled="true" maxlength="3">
+                      <input id="output" type="text" class="form-control" placeholder="DCCT percentage" disabled="true" maxlength="3">
                     </div>
                   </div>
                 </form>
@@ -120,11 +120,11 @@
                 <form id="calculateHemo">
                   <div class="form-row" style="display: inline-flex;">
                     <div class="col">
-                      <input id="input" type="number" class="form-control" placeholder="IFCC mmol/mol">
+                      <input id="input" type="text" class="form-control" placeholder="IFCC mmol/mol" onclick="reset()">
                     </div>
                     <i class="fa fa-angle-double-right" style="line-height: 2" aria-hidden="true"></i>
                     <div class="col">
-                      <input id="output" type="number" class="form-control" placeholder="DCCT percentuali" disabled="true">
+                      <input id="output" type="text" class="form-control" placeholder="DCCT percentuali" disabled="true">
                     </div>
                   </div>
                 </form>
@@ -210,10 +210,12 @@
       var but = document.getElementById("conversionType");
       if(but.checked == true){
         console.info("conversionType T");
-        document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2);
+        document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2) +" "+document.getElementById('output').placeholder;
+        document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
       }else{
         console.info("conversionType F");
-        document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2);;
+        document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2) +" "+ document.getElementById('output').placeholder;
+        document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
       }
     }
 
