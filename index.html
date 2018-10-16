@@ -2,6 +2,16 @@
   <html id="outer-tag" class="scrollContainer" lang="en">
 
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112221222-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-112221222-3');
+    </script>
+
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="./assets/img/favicon.png">
@@ -132,7 +142,30 @@
                 <button class="btn btn-simple btn-round" type="button" onclick="reset()">Resetta</button>
               </div>
 
-            </div>
+
+              <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        <div class="en">Input error</div>
+                        <div class="it">Errore di inserimento</div>
+                      </h5>
+                    </div>
+                    <div class="modal-body">
+                      <div class="en">Error, enter just numbers.</div>
+                      <div class="it">Errore, inserisci solo numeri.</div>
+                    </div>
+                    <div class="modal-footer" style="align-self: flex-end;">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                      <div class="en">Close</div>
+                      <div class="it">Chiudi</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
           </div>
         </div>
       </div>
@@ -208,14 +241,17 @@
 
     function convert() {
       var but = document.getElementById("conversionType");
-      if(but.checked == true){
-        console.info("conversionType T");
-        document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2) +" "+document.getElementById('output').placeholder;
-        document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
-      }else{
-        console.info("conversionType F");
-        document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2) +" "+ document.getElementById('output').placeholder;
-        document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
+
+      if(! /^\d+$/.test(document.getElementById('input').value))
+        $('#errorModal').modal()
+      else{
+        if(but.checked == true){
+          document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2) +" "+document.getElementById('output').placeholder;
+          document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
+        }else{
+          document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2) +" "+ document.getElementById('output').placeholder;
+          document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
+        }
       }
     }
 
