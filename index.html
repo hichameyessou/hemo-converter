@@ -86,12 +86,13 @@
               <h2 class="h2-seo">HbA1c Convertitore</h2>
               <h4>Converti facilmente dalle unità IFFC mmol/mol alle percentuali DCCT e vice-versa</h4> 
             </div>
-            <button id="scrollPage" style="background-color:transparent; border-color:transparent; cursor: pointer; outline: none;" onclick="scrollThat()"><img style="opacity:0.4;" src="./assets/img/expand.png" /></button>
+            <button id="scrollPage" style="background-color:transparent; border-color:transparent; cursor: pointer; outline: none;"><img style="opacity:0.4;" src="./assets/img/expand.png" /></button>
           </div>
           
         </div>
       </div>
       <br>
+
       
       <div class="section section-basic" id="basic-elements">
         <div class="container">
@@ -145,10 +146,35 @@
                     </div>
                   </div>
                 </form>
+                
                 <button class="btn btn-simple btn-round" type="button" onclick="convert()">Converti</button>
                 <button class="btn btn-simple btn-round" type="button" onclick="reset()">Resetta</button>
               </div>
+              <br>
+              <div id="sliderContainer" class="container" style="width: 70%;" padding="30px">
+                <div id="sliderDouble" class="slider slider-info" style="background: linear-gradient(to right, #66ff66 0%, #ff0000 130%);"></div>
+                <br>  
+                <div id="unitClearDCCT" style="text-align: center;">
+                  <br>
+                  <div class="en">
+                    <p>DCCT Percentage</p>                  
+                  </div>
+                  <div class="it">
+                    <p>Percentuali DCCT</p>
+                  </div>
+                </div>
 
+                <div id="unitClearIFCC" style="text-align: center;">
+                  <br>
+                  <div class="en">
+                    <p>IFCC mmol/mol</p>                  
+                  </div>
+                  <div class="it">
+                    <p>IFCC mmol/mol</p>
+                  </div>
+                </div>
+              </div>
+              
 
               <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -199,12 +225,10 @@
   <script src="./assets/js/plugins/bootstrap-switch.js"></script>
   <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
   <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-  <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-  <script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+  <!-- Number formatting -->
+  <script src="./assets/js/wNumb.js" type="text/javascript"></script>
   
 
   <script type="text/javascript">
@@ -222,13 +246,45 @@
 
   <script>
     $(document).ready(function() {
+      //TODO: fix scroll when changing language
         $("#scrollPage").click(function () {
-          console.info("Also got here");
           $('html').animate({
               scrollTop: $("#first-block-card").offset().top -100
           }, 1500);
-        })
+        });
+        resetHints();
       });
+
+    function initSliders(lowerTarget, higherTarget, value){
+      //Initiate sliders
+      var slider = document.getElementById('sliderDouble');
+      noUiSlider.create(slider, {
+        start: value,
+        tooltips: [wNumb({decimals: 1})],
+        range: {
+          min: lowerTarget*0.7,
+          max: lowerTarget*2
+        },
+        pips: {
+          mode: 'values',
+          values: [lowerTarget, higherTarget],
+          density: 4
+        }
+      });
+
+      //Changing the pips height
+      $('.noUi-marker-horizontal.noUi-marker-large').css('height','10px');      
+
+      //Disable Slider Drag
+      var origins = slider.getElementsByClassName('noUi-origin');
+      origins[0].setAttribute('disabled', true);
+
+      //Check if mobile and size for better readability of the slider
+      if (/Mobi|Android/i.test(navigator.userAgent)){
+        console.info("WE'RE MOBILE");
+        $('#sliderContainer').width('90%');
+      }
+    }
     
     function switchChange(cb) {
       var inputForm = document.getElementById('input').placeholder;
@@ -247,30 +303,56 @@
     }
 
     function convert() {
-      var but = document.getElementById("conversionType");
+      //Remove sliders in case of old ones
+      resetSlider();
 
+      var type = document.getElementById("conversionType");
+      
       if(! /^\d+$/.test(document.getElementById('input').value))
         $('#errorModal').modal()
       else{
-        if(but.checked == true){
-          document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2) +" "+document.getElementById('output').placeholder;
+        $("#sliderContainer").css("padding","30px");
+        if(type.checked == true){
+          var val = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2);
+          document.getElementById('output').value = val +" "+document.getElementById('output').placeholder;
           document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
+          initSliders(6,9, val);
+          $("#unitClearIFCC").css("display","none");
+          $("#unitClearDCCT").css("display","block");
         }else{
-          document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2) +" "+ document.getElementById('output').placeholder;
+          var val = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2);
+          document.getElementById('output').value = val +" "+ document.getElementById('output').placeholder;
           document.getElementById('input').value = document.getElementById('input').value +" "+ document.getElementById('input').placeholder;
+          initSliders(42,75, val);
+          $("#unitClearDCCT").css("display","none");
+          $("#unitClearIFCC").css("display","block");
         }
       }
     }
 
     function reset(){
-      $("#calculateHemo").trigger('reset'); 
+      $("#calculateHemo").trigger('reset');
+      resetSlider();
+      resetHints();
     }
 
-    function scrollThat(){
-      console.info("Got here");
-      /*$('html, body').animate({
-          scrollTop: $("#first-block-card").offset().top -100
-        }, 1500, function(){ console.info("Got also here");});*/
+    function resetSlider(){
+      var slider = document.getElementById('sliderDouble');
+      try{
+        slider.noUiSlider.destroy();
+      }catch(e){
+        console.info("Exception: "+e);
+      }
+      $("#sliderContainer").css("padding","0px");
+    }
+
+    function resetHints(){
+      try{
+        $("#unitClearDCCT").css("display","none");
+        $("#unitClearIFCC").css("display","none");
+      }catch(e){
+        console.info("Exception: "+e);
+      }
     }
   </script>
 </body>
