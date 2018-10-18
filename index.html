@@ -202,85 +202,85 @@
                     </div>
                     <div class="modal-footer" style="align-self: flex-end;">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                      <div class="en">Close</div>
-                      <div class="it">Chiudi</div>
+                        <div class="en">Close</div>
+                        <div class="it">Chiudi</div>
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
 
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--  End Modal -->
-    <footer class="footer" data-background-color="black">
-      <div class="container">
-        <div class="copyright" id="copyright">
-          &copy;
-          <script>
-            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-          </script>, Made by
-          <a href="https://www.hichame.com" target="_blank">Hichame Yessou</a>
+      <!--  End Modal -->
+      <footer class="footer" data-background-color="black">
+        <div class="container">
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Made by
+            <a href="https://www.hichame.com" target="_blank">Hichame Yessou</a>
+          </div>
         </div>
-      </div>
-    </footer>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-  <script src="./assets/js/plugins/bootstrap-switch.js"></script>
-  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-  <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-  <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
-  <!-- Number formatting -->
-  <script src="./assets/js/wNumb.js" type="text/javascript"></script>
-  
+      </footer>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="./assets/js/plugins/bootstrap-switch.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+    <!-- Number formatting -->
+    <script src="./assets/js/wNumb.js" type="text/javascript"></script>
 
-  <script type="text/javascript">
-    $('.bootstrap-switch').each(function(){
-      $this = $(this);
-      data_on_label = $this.data('on-label') || '';
-      data_off_label = $this.data('off-label') || '';
 
-      $this.bootstrapSwitch({
-        onText: data_on_label,
-        offText: data_off_label
+    <script type="text/javascript">
+      $('.bootstrap-switch').each(function(){
+        $this = $(this);
+        data_on_label = $this.data('on-label') || '';
+        data_off_label = $this.data('off-label') || '';
+
+        $this.bootstrapSwitch({
+          onText: data_on_label,
+          offText: data_off_label
+        });
       });
-    });
-  </script>
+    </script>
 
-  <script>
-    $(document).ready(function() {
-      var urlLang = window.location.hash.substring(1);
-      if(urlLang)
-        setLanguage(urlLang);
+    <script>
+      $(document).ready(function() {
+        var urlLang = window.location.hash.substring(1);
+        if(urlLang)
+          setLanguage(urlLang);
 
       //TODO: fix scroll when changing language
-        $("#scrollPage").click(function () {
-          $('html').animate({
-              scrollTop: $("#first-block-card").offset().top -100
-          }, 1500);
-        });
-        resetHints();
-        propagateTranslation();
-        
+      $("#scrollPage").click(function () {
+        $('html').animate({
+          scrollTop: $("#first-block-card").offset().top -100
+        }, 1500);
       });
+      resetHints();
+      propagateTranslation();
 
-    function propagateTranslation(){
-      var currentLanguageSelector = document.getElementById('languageSelector').innerHTML;
-      document.getElementById('forwardKnowledgeLang').setAttribute('href', 'knowledge.html#'+currentLanguageSelector);
-      document.getElementById('forwardInfoLang').setAttribute('href', 'info.html#'+currentLanguageSelector);
+    });
 
-      console.info("currentLanguageSelector: "+ currentLanguageSelector);
-    }
+      function propagateTranslation(){
+        var currentLanguageSelector = document.getElementById('languageSelector').innerHTML;
+        document.getElementById('forwardKnowledgeLang').setAttribute('href', 'knowledge.html#'+currentLanguageSelector);
+        document.getElementById('forwardInfoLang').setAttribute('href', 'info.html#'+currentLanguageSelector);
 
-    function initSliders(lowerTarget, higherTarget, value){
+        console.info("currentLanguageSelector: "+ currentLanguageSelector);
+      }
+
+      function initSliders(lowerTarget, higherTarget, value){
       //Initiate sliders
       var slider = document.getElementById('sliderDouble');
       noUiSlider.create(slider, {
@@ -319,10 +319,6 @@
       $('#output').attr('placeholder',inputForm);
 
       reset();
-    }
-
-    function forwardLang(){
-      console.info("HAI CLICCATO UN LINK");
     }
 
     function setLanguage(language) {

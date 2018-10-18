@@ -92,18 +92,18 @@
             <div class="card-body">
               <h4 class="card-title" style="color: black;">
                 <div class="en">
-                Info about the tool
-              </div>
-              <div class="it">
-                Informazioni riguardanti lo strumento
-              </div>
+                  Info about the tool
+                </div>
+                <div class="it">
+                  Informazioni riguardanti lo strumento
+                </div>
               </h4>
               <p class="card-text">
-                  <div class="en" style="color: black; padding-left: 50px; padding-right: 50px;">
-                    This tool has been developed to help diabetic patients and medical staff to transform Glycated Hemoglobin values between the IFFC (International Federation of Clinical Chemistry and Laboratory Medicine) and NGSP/DCCT notations. <br>
-                    The relationship between the 2 methods has been stable over the years and it is mapped with the master equation, standardizing the HbA1c analysis.
-                    <br>
-                    This tool refers to the master equation present in the document "IFCC Standardization of HbA1c" of the NGSP. (15/10/2018)
+                <div class="en" style="color: black; padding-left: 50px; padding-right: 50px;">
+                  This tool has been developed to help diabetic patients and medical staff to transform Glycated Hemoglobin values between the IFFC (International Federation of Clinical Chemistry and Laboratory Medicine) and NGSP/DCCT notations. <br>
+                  The relationship between the 2 methods has been stable over the years and it is mapped with the master equation, standardizing the HbA1c analysis.
+                  <br>
+                  This tool refers to the master equation present in the document "IFCC Standardization of HbA1c" of the NGSP. (15/10/2018)
                 </div>
                 <div class="it" style="color: black; padding-left: 50px; padding-right: 50px;">
                   Questo strumento è stato sviluppato per aiutare pazienti diabetici ed il personale medico a trasformare i valori di emoglobina glicata tra la notazione IFFC (International Federation of Clinical Chemistry and Laboratory Medicine) e la notazione NGSP/DCCT. La relazione tra i 2 metodi è stata stabile nel corso degli anni ed è mappata con l'equazione sviluppata nel documento "IFCC Standardization of HbA1c" da parte dell'NGSP. (15/10/2018)
@@ -172,14 +172,14 @@
       if(urlLang)
         setLanguage(urlLang);
 
-        $("#scrollPage").click(function () {
-          console.info("Also got here");
-          $('html').animate({
-              scrollTop: $("#first-block-card").offset().top -100
-          }, 1500);
-        });
-        propagateTranslation();
+      $("#scrollPage").click(function () {
+        console.info("Also got here");
+        $('html').animate({
+          scrollTop: $("#first-block-card").offset().top -100
+        }, 1500);
       });
+      propagateTranslation();
+    });
     
     function propagateTranslation(){
       var currentLanguageSelector = document.getElementById('languageSelector').innerHTML;
@@ -231,14 +231,7 @@
     function reset(){
       $("#calculateHemo").trigger('reset'); 
     }
+    </script>
+  </body>
 
-    function scrollThat(){
-      console.info("Got here");
-      /*$('html, body').animate({
-          scrollTop: $("#first-block-card").offset().top -100
-        }, 1500, function(){ console.info("Got also here");});*/
-    }
-  </script>
-</body>
-
-</html>
+  </html>
