@@ -47,12 +47,23 @@
             <span class="navbar-toggler-bar middle-bar"></span>
             <span class="navbar-toggler-bar bottom-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Home</a>
+          <a id="forwardHomeLang" class="navbar-brand">Home</a>
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
+              <a id="forwardKnowledgeLang" class="nav-link">
+                <i class="now-ui-icons education_hat" style="display: inline-block;"></i>
+                <div id="edu_EN" style="display: inline-block;">
+                  <p>Knowledge</p>
+                </div>
+                <div id="edu_IT" style="display: none">
+                  <p>Sapere</p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="forwardInfoLang" class="nav-link">
                 <i class="now-ui-icons files_paper"></i>
                 <p>Info</p>
               </a>
@@ -157,14 +168,28 @@
 
   <script>
     $(document).ready(function() {
+      var urlLang = window.location.hash.substring(1);
+      if(urlLang)
+        setLanguage(urlLang);
+
         $("#scrollPage").click(function () {
           console.info("Also got here");
           $('html').animate({
               scrollTop: $("#first-block-card").offset().top -100
           }, 1500);
-        })
+        });
+        propagateTranslation();
       });
     
+    function propagateTranslation(){
+      var currentLanguageSelector = document.getElementById('languageSelector').innerHTML;
+      document.getElementById('forwardKnowledgeLang').setAttribute('href', 'knowledge.html#'+currentLanguageSelector);
+      document.getElementById('forwardInfoLang').setAttribute('href', 'info.html#'+currentLanguageSelector);
+      document.getElementById('forwardHomeLang').setAttribute('href', 'index.html#'+currentLanguageSelector);
+
+      console.info("currentLanguageSelector: "+ currentLanguageSelector);
+    }
+
     function switchChange(cb) {
       var inputForm = document.getElementById('input').placeholder;
       var outputForm = document.getElementById('output').placeholder;
@@ -177,6 +202,17 @@
 
     function setLanguage(language) {
       $('#outer-tag').attr("lang", language);
+
+      //TODO: Improve
+      //Dirty hack for fixing displaying style in menu
+      if (language == "it") {
+        document.getElementById("edu_EN").style.display="none";
+        document.getElementById("edu_IT").style.display="inline-block";
+      }else{
+        document.getElementById("edu_EN").style.display="inline-block";
+        document.getElementById("edu_IT").style.display="none";
+      }
+
       var selector = document.getElementById('languageSelector');
       selector.innerHTML = language;
     }
