@@ -263,6 +263,7 @@
 
       //TODO: fix scroll when changing language
       $("#scrollPage").click(function () {
+        console.info("TRYING TO SCROLL");
         $('html').animate({
           scrollTop: $("#first-block-card").offset().top -100
         }, 1500);
@@ -276,8 +277,6 @@
         var currentLanguageSelector = document.getElementById('languageSelector').innerHTML;
         document.getElementById('forwardKnowledgeLang').setAttribute('href', 'knowledge.html#'+currentLanguageSelector);
         document.getElementById('forwardInfoLang').setAttribute('href', 'info.html#'+currentLanguageSelector);
-
-        console.info("currentLanguageSelector: "+ currentLanguageSelector);
       }
 
       function initSliders(lowerTarget, higherTarget, value){

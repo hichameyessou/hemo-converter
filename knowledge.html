@@ -200,8 +200,6 @@
         document.getElementById('forwardKnowledgeLang').setAttribute('href', 'knowledge.html#'+currentLanguageSelector);
         document.getElementById('forwardInfoLang').setAttribute('href', 'info.html#'+currentLanguageSelector);
         document.getElementById('forwardHomeLang').setAttribute('href', 'index.html#'+currentLanguageSelector);
-
-        console.info("currentLanguageSelector: "+ currentLanguageSelector);
       }
 
       function switchChange(cb) {
@@ -229,21 +227,7 @@
 
       var selector = document.getElementById('languageSelector');
       selector.innerHTML = language;
-    }
-
-    function convert() {
-      var but = document.getElementById("conversionType");
-      if(but.checked == true){
-        console.info("conversionType T");
-        document.getElementById('output').value = +((0.09148 * document.getElementById('input').value) + 2.152).toFixed(2);
-      }else{
-        console.info("conversionType F");
-        document.getElementById('output').value = +((10.93 * document.getElementById('input').value) - 23.50).toFixed(2);;
-      }
-    }
-
-    function reset(){
-      $("#calculateHemo").trigger('reset'); 
+      propagateTranslation();
     }
     </script>
   </body>
